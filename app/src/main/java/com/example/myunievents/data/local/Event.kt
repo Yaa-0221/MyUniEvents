@@ -3,7 +3,7 @@ package com.example.myunievents.data.local
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "events")
+@Entity(tableName = "event")
 data class Event(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
