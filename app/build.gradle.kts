@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.runtime.android)
     implementation(libs.androidx.navigation.runtime.android)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -67,5 +68,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
     implementation("androidx.navigation:navigation-compose:2.8.3")
+    testImplementation(kotlin("test"))
 
 }

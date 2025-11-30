@@ -26,45 +26,52 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myunievents.auth.AuthRepository
+import com.example.myunievents.viewmodel.ThemeViewModel
 
 @Composable
-fun ProfileScreen(navController: NavController, authRepository: AuthRepository = AuthRepository()) {
-
-    var darkMode by remember { mutableStateOf(false) }
-
+fun ProfileScreen(
+    navController: NavController,
+    themeViewModel: ThemeViewModel,
+    authRepository: AuthRepository = AuthRepository()
+) {
     Column(
-        Modifier.fillMaxSize().padding(20.dp),
-        verticalArrangement = Arrangement.Top
+        Modifier.fillMaxSize().padding(20.dp)
     ) {
-
+        // avatar
         Icon(
             Icons.Default.AccountCircle,
             contentDescription = null,
             modifier = Modifier.size(90.dp)
         )
 
-        Text("Username", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+        Spacer(Modifier.height(10.dp))
+        Text("Username", fontSize = 22.sp)
 
         Spacer(Modifier.height(20.dp))
 
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text("Dark Mode")
-            Switch(checked = darkMode, onCheckedChange = { darkMode = it })
+            Switch(
+                checked = themeViewModel.isDarkMode.value,
+                onCheckedChange = { themeViewModel.isDarkMode.value = it }
+            )
+        }
+
+        Spacer(Modifier.height(20.dp))
+
+        Button(onClick = { navController.navigate("editProfile") }) {
+            Text("Edit Profile")
         }
 
         Spacer(Modifier.height(20.dp))
 
         Button(onClick = {
             authRepository.logout()
-            navController.navigate("home") {
+            navController.navigate("login") {
                 popUpTo(0)
             }
         }) {
             Text("Logout")
         }
-
     }
 }
