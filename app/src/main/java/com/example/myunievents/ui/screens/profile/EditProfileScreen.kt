@@ -6,11 +6,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun EditProfileScreen(navController: NavController) {
 
-    var username by remember { mutableStateOf("") }
+    val user = FirebaseAuth.getInstance().currentUser
+    val firestore = FirebaseFirestore.getInstance()
+
+    var name by remember { mutableStateOf("") }
 
     Column(
         Modifier
@@ -20,24 +25,29 @@ fun EditProfileScreen(navController: NavController) {
 
         Text("Edit Profile", style = MaterialTheme.typography.titleLarge)
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(20.dp))
 
-        TextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("New Username") },
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            label = { Text("Display Name") },
             modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(Modifier.height(20.dp))
 
         Button(
+            modifier = Modifier.fillMaxWidth(),
             onClick = {
-                navController.popBackStack() // 返回 Profile
-            },
-            modifier = Modifier.fillMaxWidth()
+                if (user != null) {
+                    firestore.collection("users")
+                        .document(user.uid)
+                        .update("displayName", name)
+                }
+                navController.popBackStack()
+            }
         ) {
-            Text("Save")
+            Text("Save Profile")
         }
     }
 }

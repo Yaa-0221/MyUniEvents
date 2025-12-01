@@ -1,14 +1,20 @@
 package com.example.myunievents.viewmodel
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class ThemeViewModel : ViewModel() {
-    // State controlling light/dark mode
-    var isDarkMode = mutableStateOf(false)
-        private set
+
+    // false = light, true = dark
+    private val _isDarkTheme = MutableStateFlow(false)
+    val isDarkTheme = _isDarkTheme.asStateFlow()
+
+    fun setDarkTheme(enabled: Boolean) {
+        _isDarkTheme.value = enabled
+    }
 
     fun toggleTheme() {
-        isDarkMode.value = !isDarkMode.value
+        _isDarkTheme.value = !_isDarkTheme.value
     }
 }
