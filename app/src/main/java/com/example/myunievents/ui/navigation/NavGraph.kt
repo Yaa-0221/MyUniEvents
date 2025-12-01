@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myunievents.auth.LoginScreen
 import com.example.myunievents.auth.RegisterScreen
+import com.example.myunievents.ui.screens.add.AddEventScreen
 import com.example.myunievents.ui.screens.details.EventDetailsScreen
 import com.example.myunievents.ui.screens.home.HomeScreen
 import com.example.myunievents.ui.screens.profile.EditProfileScreen
@@ -36,6 +37,9 @@ fun NavGraph(
 
         composable("profile") {
             ProfileScreen(navController, themeViewModel)
+        }
+        composable("addEvent") {
+            AddEventScreen(navController)
         }
 
         composable("editProfile") {

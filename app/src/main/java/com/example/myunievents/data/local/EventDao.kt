@@ -12,6 +12,6 @@ interface EventDao {
     @Delete
     suspend fun deleteEvent(event: Event)
 
-    @Query("SELECT * FROM events")
+    @Query("SELECT * FROM event")
     suspend fun getAllEvents(): List<Event>
 }

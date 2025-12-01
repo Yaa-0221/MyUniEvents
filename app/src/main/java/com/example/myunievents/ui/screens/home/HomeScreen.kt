@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -57,5 +60,16 @@ fun HomeScreen(navController: NavController) {
                 )
             }
         }
+        Scaffold(
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { navController.navigate("addEvent") }
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = "Add Event")
+                }
+            }
+        ) { padding ->
+            // your existing content
+        }
     }
-}
+    }

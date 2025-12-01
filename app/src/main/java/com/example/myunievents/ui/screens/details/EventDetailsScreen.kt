@@ -24,7 +24,7 @@ import com.example.myunievents.viewmodel.EventsViewModelFactory
 @Composable
 fun EventDetailsScreen(
     navController: NavController,
-    eventId: Int?,
+    eventId: Int?
 ) {
     val context = LocalContext.current
     val viewModel: EventsViewModel = viewModel(factory = EventsViewModelFactory(context))
@@ -32,31 +32,26 @@ fun EventDetailsScreen(
     val event = viewModel.getEventById(eventId)
 
     if (event == null) {
-        Text("Event not found.")
+        Text("Loading event...")
         return
     }
 
     Column(
-        Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+        Modifier.fillMaxSize().padding(16.dp)
     ) {
-
         Text(event.title, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-
         Spacer(Modifier.height(8.dp))
 
         Text("${event.date} • ${event.time}")
         Text(event.location)
 
         Spacer(Modifier.height(12.dp))
-
         Divider()
-
         Spacer(Modifier.height(12.dp))
 
         Text("Description", fontSize = 20.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(4.dp))
+
         Text(event.description)
 
         Spacer(Modifier.height(16.dp))
@@ -66,15 +61,6 @@ fun EventDetailsScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Save Event")
-        }
-
-        Spacer(Modifier.height(10.dp))
-
-        Button(
-            onClick = { viewModel.getFirebaseUpdates(event.id) },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Get Updates")
         }
     }
 }

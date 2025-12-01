@@ -28,17 +28,9 @@ fun SavedScreen(navController: NavController) {
 
     val savedEvents by viewModel.savedEvents.collectAsState()
 
+    Column(Modifier.fillMaxSize().padding(16.dp)) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-
-        Text(
-            "Saved Events",
-            style = MaterialTheme.typography.titleLarge
-        )
+        Text("Saved Events", style = MaterialTheme.typography.titleLarge)
 
         LazyColumn {
             items(savedEvents) { event ->
@@ -54,3 +46,4 @@ fun SavedScreen(navController: NavController) {
         }
     }
 }
+

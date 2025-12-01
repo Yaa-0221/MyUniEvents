@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.myunievents.data.local.AppDatabase
 import com.example.myunievents.data.local.Event
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -25,17 +26,20 @@ class EventsViewModel(private val context: Context) : ViewModel() {
 
     fun saveEvent(event: Event) {
         viewModelScope.launch {
+            // Save to Room
             eventDao.insertEvent(event)
             _savedEvents.value = eventDao.getAllEvents()
+
+            // Save to Firebase
+            val db = FirebaseFirestore.getInstance()
+            db.collection("events")
+                .add(event)
         }
     }
 
+
     fun getEventById(id: Int?): Event? {
         return _savedEvents.value.find { it.id == id }
-    }
-
-    fun getFirebaseUpdates(eventId: Int) {
-        // This will be implemented later
     }
 }
 
